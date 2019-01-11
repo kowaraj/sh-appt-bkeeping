@@ -1,4 +1,59 @@
-//module.exports.
+var retval = "default retval";
+
+function neo4j_create (q_str) {
+    console.log('::create');
+    var neo4j = require('neo4j');
+    var db = new neo4j.GraphDatabase('http://neo4j:1234@localhost:7474');
+
+    db.cypher({
+	query: q_str,
+    }, function (err, results) {
+	console.log('...');
+    });
+};
+
+function set_retval(a) {
+    retval = a;
+}
+
+function get_retval() {
+    return retval;
+}
+
+function neo4j_match (q_str) {
+    console.log('::match');
+    var neo4j = require('neo4j');
+    var db = new neo4j.GraphDatabase('http://neo4j:1234@localhost:7474');
+    var x_ret = "";
+
+    db.cypher({
+	query: q_str,
+	
+    }, function (err, results) {
+	if (err) throw err;
+	var result = results[0];
+	if (!result) {
+            console.log('No user found.');
+	    return "no result";
+	} else {
+            var user = result['ee'];
+            console.log("success return !");
+            console.log(JSON.stringify(user, null, 4));
+            x_ret = "x-ret value"; //JSON.stringify(user.klou, null, 4);
+            console.log(x_ret);
+	    retval = x_ret;
+            console.log("retval = " + retval );
+	    set_retval(retval);
+	    return retval;
+	}
+    });
+
+    console.log("x-ret value before the return");
+    console.log(x_ret);
+    //return "reached end of func";
+    return get_retval();
+};
+
 function init () {
     console.log('hi');
     var neo4j = require('neo4j');
@@ -39,9 +94,13 @@ function x () {
    console.log('!!! jstest.js: x() called!');
 };
 
+function xx () {
+    return "xx return value";
+};
+
 var y = 5;
 
-export { x, init, y };
+export { x, xx, init, y, neo4j_create, neo4j_match};
 //export { y };
 
 
