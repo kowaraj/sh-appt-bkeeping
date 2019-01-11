@@ -1,63 +1,7 @@
-  
 let str = ReasonReact.string;
 
-type item  = {
-  id : int, 
-  text : string, 
-  completed: bool
-  };
-
-module TodoItem = {
-  let component = ReasonReact.statelessComponent("TodoItem");
-  let make = (~item, children) => {
-    ...component,
-    render: (self) =>
-      <div className="item">
-        <input
-          type_="checkbox"
-          checked=(item.completed)
-          /* TODO make interactive */
-        />
-        (str(item.text))
-      </div>
-  };
-};
-
-let valueFromEvent = (evt) : string => (
-  evt
-  |> ReactEventRe.Form.target
-  |> ReactDOMRe.domElementToObj
-)##value;
-
-
-module Input = {
-  type state = string;
-  let component = ReasonReact.reducerComponent("Input");
-  let make = (~onSubmit, _) => {
-    ...component,
-    initialState: () => "",
-    reducer: (newText, _text) => ReasonReact.Update(newText),
-    render: ({state: text, send}) =>
-      <input
-        value=text
-        type_="text"
-        placeholder="Write something to do"
-        onChange=((evt) => send(valueFromEvent(evt)))
-        onKeyDown=((evt) =>
-          if (ReactEventRe.Keyboard.key(evt) == "Enter") {
-            onSubmit(text);
-            send("")
-          }
-        )
-      />
-  };
-  };
-
-
-
-
 type state = {
-  items: list(item),
+  items: list(TodoType.item),
 };
 
 type action = 
@@ -70,12 +14,12 @@ let lastId = ref(0);
 
 let newItem = () => {
   lastId := lastId^ + 1;
-  {id: lastId^, text: "default text", completed: false}
+  {TodoType.id: lastId^, text: "default text", completed: false}
 };
 
 let newItemWithName = (text) => {
   lastId := lastId^ + 1;
-  {id: lastId^, text: text, completed: false}
+  {TodoType.id: lastId^, text: text, completed: false}
 };
   
 let make = (~message, _children) => {
@@ -104,15 +48,16 @@ let make = (~message, _children) => {
         <p/>
       <div className="title">
         (str("What to do"))
-        <Input onSubmit=((text) => self.send(AddItemWithName(text))) />
+        <Input onSubmit= ((text) => self.send(AddItemWithName(text))) />
       </div>
 
       <div className="items">
         (
           ReasonReact.array(Array.of_list(
-              List.map((item) => <TodoItem item />, self.state.items)
+              List.map((itemXX) => <TodoItem itemX=itemXX />, self.state.items)
           ))
         )
       </div>
-      </div>
+
+    </div>
 };
