@@ -35,29 +35,40 @@ let make = (~message, _children) => {
         <div className="Todo">
             (ReasonReact.string(message)) 
         </div>
-        
-        <button onClick=((evt) => Js.log("didn't add something")) >
+
+        // Test button
+        <button onClick=((_evt) => Js.log("didn't add something")) >
             (str("Add something"))
         </button>
         <p/>
-        <button onClick=((evt) => self.send(AddItem)) >
+
+        // Add Item button
+        <button onClick=((_evt) => self.send(AddItem)) >
             (str("Add more of something "))
         </button>
         <p/>
-        <p/>
-        <p/>
-      <div className="title">
-        (str("What to do"))
-        <Input onSubmit= ((text) => self.send(AddItemWithName(text))) />
-      </div>
 
-      <div className="items">
+        // Add Item input
+        <div className="title">
+            (str("What to do"))
+            <Input onSubmit= ((text) => self.send(AddItemWithName(text))) />
+        </div>
+
+        // List of Items
+        <div className="items">
         (
           ReasonReact.array(Array.of_list(
-              List.map((itemXX) => <TodoItem itemX=itemXX />, self.state.items)
+            List.map((itemXX) => {
+                     let i : TodoType.item = itemXX;
+                     <li key= string_of_int(i.id) >
+                       <TodoItem itemX=itemXX />
+                     </li>}
+                     , self.state.items)
           ))
         )
-      </div>
+        </div>
+
+        
 
     </div>
 };

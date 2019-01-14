@@ -7,8 +7,10 @@ let make = (~itemX : TodoType.item, children) => {
       <div className="item">
         <input
           type_="checkbox"
+
           checked=(itemX.completed)
           /* TODO make interactive */
+          onChange=( unit => { "ok"; ()} )
         />
         (str(itemX.text))
       </div>
