@@ -4,6 +4,7 @@ function neo4j_create (q_str) {
     console.log('::create');
     var neo4j = require('neo4j');
     var db = new neo4j.GraphDatabase('http://neo4j:1234@localhost:7474');
+//    var db = new neo4j.GraphDatabase('http://neo4j:1234@137.138.204.240:7474');
 
     db.cypher({
 	query: q_str,
