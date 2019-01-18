@@ -8,7 +8,7 @@ var ServiceWorker = require("./serviceWorker");
 
 ((require('./index.css')));
 
-ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App.make("Welcome to React and Reason", /* array */[])), "root");
+ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App.make("(work in progress) AMS IT Website", /* array */[])), "root");
 
 ServiceWorker.unregister();
 

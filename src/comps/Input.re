@@ -6,7 +6,7 @@ let valueFromEvent = (evt) : string => (
 
 type state = string;
   let component = ReasonReact.reducerComponent("Input");
-  let make = (~onSubmit, _) => {
+  let make = (~onSubmit, ~ph="Write smth..", _) => {
     ...component,
     initialState: () => "",
     reducer: (newText, _text) => ReasonReact.Update(newText),
@@ -14,7 +14,7 @@ type state = string;
       <input
         value=text
         type_="text"
-        placeholder="Write something to do"
+        placeholder=ph
         onChange=((evt) => send(valueFromEvent(evt)))
         onKeyDown=((evt) =>
           if (ReactEventRe.Keyboard.key(evt) == "Enter") {
