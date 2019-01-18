@@ -27,7 +27,7 @@ let queryDB = q => {
 
 // Make
   
-let make = (~message, _children) => {
+let make = (~message, ~id=0, _children) => {
   ...component,
   initialState: () => { text: "enter a query", items: [{id: 0, text: "first item", completed: false }]},
   reducer: (action, {items}) => 
