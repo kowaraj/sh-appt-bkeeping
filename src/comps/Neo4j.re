@@ -10,6 +10,9 @@ type action =
 
 let component = ReasonReact.reducerComponent("Neo4j");
 
+
+[@bs.module "./readfile"] [@bs.val] external read_file : unit => string = "";
+read_file();
 // DB access
 
 [@bs.module "./jstest"] [@bs.val] external neo4j_create : string => unit = "";

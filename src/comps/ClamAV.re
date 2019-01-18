@@ -9,6 +9,11 @@ type action =
 
 let component = ReasonReact.reducerComponent("ClamAV");
 
+// FS access
+
+//[@bs.module "./readfile"] [@bs.val] external read_file : unit => string = "";
+//let x = read_file();
+
 let make = (~message, _children) => {
   ...component,
   initialState: () => { text: "Welcome to ClamAV"},
@@ -19,7 +24,10 @@ let make = (~message, _children) => {
   render: self =>
       <div>
         <div className="ClamAV">
-            (ReasonReact.string(message)) 
+            {
+              (ReasonReact.string(message))
+            } 
+
         </div>        
         <p/>
     </div>
