@@ -11,16 +11,23 @@ type action =
 let component = ReasonReact.reducerComponent("Neo4j");
 
 
-[@bs.module "./readfile"] [@bs.val] external read_file : unit => string = "";
-read_file();
+//[@bs.module "./readfile"] [@bs.val] external read_file : unit => string = "";
+//read_file();
 // DB access
 
 [@bs.module "./jstest"] [@bs.val] external neo4j_create : string => unit = "";
 [@bs.module "./jstest"] [@bs.val] external neo4j_match : string => string = "";
+[@bs.module "./jstest"] [@bs.val] external neo4j_match_with_callback : (string, (string => unit)) => string = "";
 
+let cbX = msg => {
+    Js.log("RETURN ====== ")
+    Js.log(msg);
+
+  }
+  
 let queryDB = q => {
     //let q = "CREATE (ee:Person { name: \"Emil600\", from: \"Sweden\", klout: 600 })";
-    neo4j_match(q);
+    neo4j_match_with_callback(q, cbX);
     {TodoType.id: 0, text: "query completed", completed: false}
   }
 

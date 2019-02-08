@@ -57,6 +57,35 @@ function neo4j_match (q_str) {
     return get_retval();
 };
 
+function neo4j_match_with_callback (q_str, cb) {
+    console.log('::match with a callback !! ');
+    var neo4j = require('neo4j');
+
+    var db = new neo4j.GraphDatabase('http://neo4j:1234@localhost:7474');
+
+    db.cypher({
+	query: q_str,
+	
+    }, function (err, results) {
+	if (err) throw err;
+	var result = results[0];
+	if (!result) {
+            console.log('No user found.');
+	    return "no result";
+	} else {
+            var user = result['ee'];
+            console.log("success return !");
+            console.log(JSON.stringify(user, null, 4));
+            console.log("user = " + user);
+	    cb(user);
+	    return retval;
+	}
+    });
+
+    console.log("x-ret value before the return");
+
+};
+
 function init () {
     console.log('hi');
     var neo4j = require('neo4j');
@@ -103,7 +132,7 @@ function xx () {
 
 var y = 5;
 
-export { x, xx, init, y, neo4j_create, neo4j_match};
+export { x, xx, init, y, neo4j_create, neo4j_match, neo4j_match_with_callback};
 //export { y };
 
 

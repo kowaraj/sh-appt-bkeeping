@@ -1,7 +1,7 @@
 function read_file () {
     console.log('::read_file ');
-    var fs = require('fs-js');
-    console.log("fs = ",  fs);
+    // var fs = require('fs-js');
+    // console.log("fs = ",  fs);
     
 
     // fsx.open('/clamav/test.txt', 'r', (err, fd) => {
