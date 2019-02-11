@@ -7,6 +7,8 @@ let str = ReasonReact.string;
 type page =
   | Page1
   | Page2
+  | Text
+  | Text2
   | PageAMSLaptopAntivirus
   | Page(int);
 
@@ -19,6 +21,8 @@ module Mapper: Mapper = {
   let toPage = (url: ReasonReact.Router.url) => {
     switch (url.path) {
     | ["page1"] => Page1
+    | ["text"] => Text
+    | ["text2"] => Text2
     | ["pageAMSLaptopAntivirus"] => PageAMSLaptopAntivirus
     | ["page", id] => Page(int_of_string(id))
     | _ => Page2
@@ -64,15 +68,21 @@ let make = (~message, _children) => {
 
   render: _self =>
     <div className="App">
+
       <div className="App-header-2">
         <h2> (ReasonReact.string(message)) </h2>
         <img src=logo className="App-logo" alt="logo" />
       </div>
+
       <div className="App-header-2">
         <h1>
           <a href="page1"> (str("Todo List"))</a>
           (str(" ..  "))
           <a href="page2"> (str("Neo4j"))</a>
+          (str(" ..  "))
+          <a href="text"> (str("T1"))</a>
+          (str(" ..  "))
+          <a href="text2"> (str("T2"))</a>
           (str(" ..  "))
           <a href="pageAMSLaptopAntivirus"> (str("AMS LT Antivirus"))</a>
           (str(" ..  "))
@@ -82,15 +92,22 @@ let make = (~message, _children) => {
         </h1>
       </div>
 
-      <div>
-          <h1>
-           <a href="http://localhost:60300/pageHawaii"> (str("Science data transfer to Hawaii")) </a>
-          </h1>
-    </div>
+      /* <div> */
+      /*   <h1> */
+      /*     <a href="http://localhost:60300/pageHawaii"> (str("Science data transfer to Hawaii")) </a> */
+      /*   </h1> */
+      /* </div> */
+
+
+
+
+    
       <div className="App-intro"> (
           switch (_self.state.route) {
           | Page1 => <ToDo message="hi"/>
           | Page2 => <Neo4j message="hi neo"/>
+          | Text => <p> (str("Test page #666")) </p>
+          | Text2 => <TextPage message="hi"/>
           | PageAMSLaptopAntivirus => <ClamAV message="hi clamav"/>
           | Page(666) => <p> (str("Test page #666")) </p>
           | Page(a_id) => <p> (str(string_of_int(a_id)))  </p>

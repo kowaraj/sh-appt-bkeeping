@@ -18,14 +18,20 @@ let component = ReasonReact.reducerComponent("Neo4j");
 [@bs.module "./jstest"] [@bs.val] external neo4j_create : string => unit = "";
 [@bs.module "./jstest"] [@bs.val] external neo4j_match : string => string = "";
 [@bs.module "./jstest"] [@bs.val] external neo4j_match_with_callback : (string, (string => unit)) => string = "";
+[@bs.module "./jstest_http"] [@bs.val] external http_req : (string, (string => unit)) => string = "";
 
 let cbX = msg => {
     Js.log("RETURN ====== ")
-    Js.log(msg);
+    Js.log(msg)
 
   }
   
 let queryDB = q => {
+    http_req("teststring", cbX);
+    {TodoType.id: 0, text: "query completed", completed: false}
+  }
+
+let original_queryDB = q => {
     //let q = "CREATE (ee:Person { name: \"Emil600\", from: \"Sweden\", klout: 600 })";
     neo4j_match_with_callback(q, cbX);
     {TodoType.id: 0, text: "query completed", completed: false}
