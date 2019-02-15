@@ -42,6 +42,18 @@ let make = (~message, _children) => {
         </button>
         <p/>
 
+        <div>
+            
+          //<form action="/upload" enctype="multipart/form-data" method="post">
+          <form action="http://localhost:8080/" method="post">
+            //<input type_="file" name="upload" multiple>
+            <input type_="file" name="upload">
+            </input>
+            <input type_="submit" value="Upload">
+            </input>
+          </form>
+        </div>
+            
         // Add Item button
         <button onClick=((_evt) => self.send(AddItem)) >
             (str("Add more of something "))
