@@ -92,19 +92,9 @@ let make = (~message, _children) => {
         </h1>
       </div>
 
-      /* <div> */
-      /*   <h1> */
-      /*     <a href="http://localhost:60300/pageHawaii"> (str("Science data transfer to Hawaii")) </a> */
-      /*   </h1> */
-      /* </div> */
-
-
-
-
-    
       <div className="App-intro"> (
           switch (_self.state.route) {
-          | Page1 => <ToDo message="hi"/>
+          | Page1 => <ToDo/>
           | Page2 => <Neo4j message="hi neo"/>
           | Text => <p> (str("Test page #666")) </p>
           | Text2 => <TextPage message="hi"/>

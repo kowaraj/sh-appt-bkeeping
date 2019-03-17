@@ -1,7 +1,8 @@
 let str = ReasonReact.string;
 
 type state = {
-  items: list(TodoType.item),
+  selectedFile: string,
+  loaded: int
 };
 
 type action = 
@@ -10,77 +11,32 @@ type action =
 
 let component = ReasonReact.reducerComponent("ToDo");
 
-let lastId = ref(0);
 
-let newItem = () => {
-  lastId := lastId^ + 1;
-  {TodoType.id: lastId^, text: "default text", completed: false}
-};
 
-let newItemWithName = (text) => {
-  lastId := lastId^ + 1;
-  {TodoType.id: lastId^, text: text, completed: false}
-};
-  
-let make = (~message, _children) => {
+let make = (_children) => {
   ...component,
-  initialState: () => { items: [{id: 0, text: "first item", completed: false }]},
-  reducer: (action, {items}) => 
+  initialState: () => { selectedFile: "", loaded: 0 },
+  reducer: (action, self : state) => 
     switch (action) {
-      | AddItem =>  ReasonReact.Update({items: [ newItem(), ...items]})
-      | AddItemWithName(text) =>  ReasonReact.Update({items: [ newItemWithName(text), ...items]})
+      | AddItem =>  ReasonReact.Update(self)
+      | AddItemWithName(text) =>  ReasonReact.Update(self)
       },
   render: self =>
       <div>
-        <div className="Todo">
-            (ReasonReact.string(message)) 
-        </div>
-
-        // Test button
-        <button onClick=((_evt) => Js.log("didn't add something")) >
-            (str("Add something"))
-        </button>
-        <p/>
 
         <div>
-            
-          //<form action="/upload" enctype="multipart/form-data" method="post">
-          <form action="http://localhost:8080/" method="post">
-            //<input type_="file" name="upload" multiple>
-            <input type_="file" name="upload">
+          <a href="http://ec2-52-211-128-21.eu-west-1.compute.amazonaws.com:8080/"> {str("UPLOADLINK")}</a>
+          <form action="http://ec2-52-211-128-21.eu-west-1.compute.amazonaws.com:8080/upload" encType="multipart/form-data" method="post">
+            <input type_="file" name="uploadFile">
             </input>
             <input type_="submit" value="Upload">
             </input>
           </form>
         </div>
-            
-        // Add Item button
-        <button onClick=((_evt) => self.send(AddItem)) >
-            (str("Add more of something "))
-        </button>
-        <p/>
 
-        // Add Item input
-        <div className="title">
-            (str("What to do"))
-            <Input onSubmit= ((text) => self.send(AddItemWithName(text))) />
+        <div>
+            <Apploader />
         </div>
 
-        // List of Items
-        <div className="items">
-        (
-          ReasonReact.array(Array.of_list(
-            List.map((itemXX) => {
-                     let i : TodoType.item = itemXX;
-                     <li key= string_of_int(i.id) >
-                       <TodoItem itemX=itemXX />
-                     </li>}
-                     , self.state.items)
-          ))
-        )
-        </div>
-
-        
-
-    </div>
+      </div>
 };

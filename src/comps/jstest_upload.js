@@ -2,7 +2,7 @@
 function http_upload(some_str, cb) {
     const http = require('http');
 
-    http.get('http://localhost:8080/', (resp) => {
+    http.get('http://ec2-52-211-128-21.eu-west-1.compute.amazonaws.com:8080/', (resp) => {
 	let data = '';
 
 	// A chunk of data has been recieved.
