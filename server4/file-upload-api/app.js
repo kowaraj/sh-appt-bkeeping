@@ -33,20 +33,21 @@ app.post('/upload', (req, res, next) => {
     var ts_ms = date.getMilliseconds();
     var timestamp = ts_s + "_" + ts_ms;
     const fileName = req.files.file.name
-    
-  uploadFile.mv(
-    `${__dirname}/public/files/${timestamp}`,
-    function (err) {
-      if (err) {
-        return res.status(500).send(err)
-      }
-
-      res.json({
-        file: `${fileName}`,
-	  ts: `${timestamp}`,
-      })
-    },
-  )
+    const fileNameExt = fileName.split('.').pop();
+        
+    uploadFile.mv(
+	`${__dirname}/public/files/${timestamp}`,
+	function (err) {
+	    if (err) {
+		return res.status(500).send(err)
+	    }
+	    res.json({
+		file: `${fileName}`,
+		ts: `${timestamp}`,
+		ext: `${fileNameExt}`,
+	    })
+	},
+    )
 })
 
 // catch 404 and forward to error handler

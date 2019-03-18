@@ -5,12 +5,15 @@ import axios from 'axios'
 const endpoint = 'http://ec2-52-211-128-21.eu-west-1.compute.amazonaws.com:8080/upload'
 
 class Apploader extends Component {
-    constructor() {
+    constructor(props) {
 	super()
+	//props.cb("test cb-arg");
 	this.state = {
 	    selectedFile: null,
 	    loaded: 0,
+	    f: props.cb,
 	}
+
     }
     
     handleselectedFile = event => {
@@ -35,6 +38,7 @@ class Apploader extends Component {
 	    .then(res => {
 		console.log(res.statusText)
 		console.log(res.data)
+		this.state.f(res.data.ts)
 	    })
     }
 

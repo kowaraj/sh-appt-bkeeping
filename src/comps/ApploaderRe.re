@@ -1,5 +1,6 @@
 [@bs.deriving abstract]
 type jsProps = {
+  cb: string => string,
   value: Js.nullable(int),
 };
 
@@ -7,12 +8,13 @@ type jsProps = {
 //IMPORTANT! This fails: [@bs.module] external apploader : ReasonReact.reactClass = "./Apploader";
 [@bs.module "./Apploader"] external apploader : ReasonReact.reactClass = "default";
 
-let make = (~value_=?, children) => {
-  let jsp = jsProps(~value=Js.Nullable.fromOption(value_));
+let make = (~cb_, ~value_=?, children) => {
+  let jsp = jsProps(~cb=cb_, ~value=Js.Nullable.fromOption(value_));
 
   ReasonReact.wrapJsForReason(
     ~reactClass=apploader,
-    ~props=Js.Obj.empty(),
+     //~props=Js.Obj.empty(),
+    ~props=jsp,
     children,
   );
 };
