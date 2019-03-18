@@ -1,6 +1,12 @@
+/* type apploader_cb_retval = { */
+/*   fn : string, */
+/*   fn_ext : string,  */
+/*   status : int, */
+/* }; */
+
 [@bs.deriving abstract]
 type jsProps = {
-  cb: string => string,
+  cb: string=>string=>string => string,
   value: Js.nullable(int),
 };
 

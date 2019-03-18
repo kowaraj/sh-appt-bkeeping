@@ -15,11 +15,13 @@ type action =
 let component = ReasonReact.reducerComponent("ToDo");
 
 
-let apploader_cb = (selfsend, cb_arg : string) => {
-  Js.log("Callback triggered!?  - ")
-  Js.log(cb_arg);
+let apploader_cb = (selfsend, fn, fn_ext, ts) => {
+  Js.log("Callback triggered!")
+  Js.log("fn     = " ++ fn);
+  Js.log("fn_ext = " ++ fn_ext);
+  Js.log("ts     = " ++ ts);
 
-  selfsend(Up(cb_arg));
+  selfsend(Up("File: " ++ fn ++" has been stored as: " ++ ts ++ "." ++ fn_ext));
 
   "dummy return value to ignore";
 };
@@ -32,8 +34,7 @@ let make = (_children) => {
     | AddItem =>  ReasonReact.Update(self)
     | AddItemWithName(text) =>  ReasonReact.Update(self)
     | Up(text) => ReasonReact.Update({...self, retval: text})
-
-      },
+    },
   render: self =>
     <div>
       <div>

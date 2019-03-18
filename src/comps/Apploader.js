@@ -38,7 +38,9 @@ class Apploader extends Component {
 	    .then(res => {
 		console.log(res.statusText)
 		console.log(res.data)
-		this.state.f(res.data.ts)
+		// const retval = {status: 77, fn: res.data.ts, fn_ext: "some_ext"};
+		// console.log(retval)
+		this.state.f(res.data.fn, res.data.fn_ext, res.data.ts)
 	    })
     }
 

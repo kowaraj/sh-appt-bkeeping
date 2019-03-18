@@ -32,19 +32,22 @@ app.post('/upload', (req, res, next) => {
     var ts_s = date.getTime();
     var ts_ms = date.getMilliseconds();
     var timestamp = ts_s + "_" + ts_ms;
-    const fileName = req.files.file.name
-    const fileNameExt = fileName.split('.').pop();
-        
+    console.log(timestamp);
+    const fileName_original = req.files.file.name;
+    const fileNameExt = fileName_original.split('.').pop();
+    const fileName_saved = timestamp + "." + fileNameExt;
+    console.log(fileName_saved);
+    
     uploadFile.mv(
-	`${__dirname}/public/files/${timestamp}`,
+	`${__dirname}/public/files/${fileName_saved}`,
 	function (err) {
 	    if (err) {
 		return res.status(500).send(err)
 	    }
 	    res.json({
-		file: `${fileName}`,
+		fn: `${fileName_original}`,
 		ts: `${timestamp}`,
-		ext: `${fileNameExt}`,
+		fn_ext: `${fileNameExt}`,
 	    })
 	},
     )
