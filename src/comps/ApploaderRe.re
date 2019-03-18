@@ -1,16 +1,10 @@
-/* [@bs.deriving abstract] */
-/* type jsProps = { */
-/*   className: string, */
-/*   [@bs.as "type"] type_: string, */
-/*   value: Js.nullable(int), */
-/* }; */
 [@bs.deriving abstract]
 type jsProps = {
   value: Js.nullable(int),
 };
 
 
-//[@bs.module] external apploader : ReasonReact.reactClass = "./Apploader";
+//IMPORTANT! This fails: [@bs.module] external apploader : ReasonReact.reactClass = "./Apploader";
 [@bs.module "./Apploader"] external apploader : ReasonReact.reactClass = "default";
 
 let make = (~value_=?, children) => {
@@ -23,13 +17,3 @@ let make = (~value_=?, children) => {
   );
 };
 
-/* let make = (~className, ~type_, ~value=?, children) => */
-/*   ReasonReact.wrapJsForReason( */
-/*     ~reactClass=apploader, */
-/*     ~props=jsProps( */
-/*       ~className, */
-/*       ~type_, */
-/*       ~value=Js.Nullable.fromOption(value), */
-/*     ), */
-/*     children, */
-/*   ); */

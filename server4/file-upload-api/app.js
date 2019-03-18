@@ -27,17 +27,23 @@ app.use(fileUpload())
 app.use('/public', express.static(__dirname + '/public'))
 
 app.post('/upload', (req, res, next) => {
-  let uploadFile = req.files.file
-  const fileName = req.files.file.name
+    let uploadFile = req.files.file
+    var date = new Date();
+    var ts_s = date.getTime();
+    var ts_ms = date.getMilliseconds();
+    var timestamp = ts_s + "_" + ts_ms;
+    const fileName = req.files.file.name
+    
   uploadFile.mv(
-    `${__dirname}/public/files/${fileName}`,
+    `${__dirname}/public/files/${timestamp}`,
     function (err) {
       if (err) {
         return res.status(500).send(err)
       }
 
       res.json({
-        file: `public/${req.files.file.name}`,
+        file: `${fileName}`,
+	  ts: `${timestamp}`,
       })
     },
   )

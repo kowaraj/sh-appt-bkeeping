@@ -25,16 +25,6 @@ let make = (_children) => {
       <div>
 
         <div>
-          <a href="http://ec2-52-211-128-21.eu-west-1.compute.amazonaws.com:8080/"> {str("UPLOADLINK")}</a>
-          <form action="http://ec2-52-211-128-21.eu-west-1.compute.amazonaws.com:8080/upload" encType="multipart/form-data" method="post">
-            <input type_="file" name="uploadFile">
-            </input>
-            <input type_="submit" value="Upload">
-            </input>
-          </form>
-        </div>
-
-        <div>
             <ApploaderRe />
         </div>
 
