@@ -35,7 +35,7 @@ let make = (_children) => {
         </div>
 
         <div>
-            <Apploader />
+            <ApploaderRe />
         </div>
 
       </div>

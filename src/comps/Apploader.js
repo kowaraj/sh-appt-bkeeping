@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 
 import axios from 'axios'
 
-const endpoint = 'http://localhost:8000/upload'
+//const endpoint = 'http://localhost:8000/upload'
+const endpoint = 'http://ec2-52-211-128-21.eu-west-1.compute.amazonaws.com:8080/upload'
 
 class Apploader extends Component {
   constructor() {
